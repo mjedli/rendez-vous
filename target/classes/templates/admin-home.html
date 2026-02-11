@@ -26,15 +26,7 @@
 <body>
 
 <!-- As a heading -->
-<nav class="navbar navbar-light bg-light">
-    <span class="navbar-brand mb-0 h1">Rendez-Vous</span>
-
-    <form class="form-inline ml-auto" th:action="@{/logout}" method="post">
-        <button type="submit" class="btn btn-outline-danger">
-            <i class="fab fa-google"></i> Logout
-        </button>
-    </form>
-</nav>
+<div th:replace="toolbar :: toolbar"></div>
 
 <br>
 <br>
@@ -45,13 +37,20 @@
 <div class="container">
 
     <h2>Bienvenue, <span th:text="${username}">Utilisateur</span>!</h2>
-
+    <br><br>
     <p>Vos rôles :</p>
     <ul>
         <li th:each="role : ${roles}" th:text="${role.authority}"></li>
     </ul>
+    <br><br>
+    <p>Menu :</p>
 
-Home admin
+    <ul>
+        <li><a href="/admin/rendezvous/create">Création de rendez-vous</a></li>
+        <li><a href="/admin/rendezvous/list">List de mes rendez-vous</a></li>
+    </ul>
+
+
 </div>
 </body>
 
