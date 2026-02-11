@@ -4,6 +4,8 @@ import com.example.demo.login.model.HomeObject;
 import com.example.demo.login.model.LoginObject;
 import com.example.demo.login.model.LoginPojo;
 import jakarta.mail.internet.MimeMessage;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -14,6 +16,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -58,10 +61,13 @@ public class LoginController {
 
     private static final Logger log = LoggerFactory.getLogger(LoginController.class);
 
-    @GetMapping(value = "/logout")
-    public String logoutPage () {
-        SecurityContextHolder.getContext().setAuthentication(null);
-        return "redirect:/loginApp?logout";
+    @GetMapping("/logout")
+    public String logoutPage(HttpServletRequest request, HttpServletResponse response) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth != null) {
+            new SecurityContextLogoutHandler().logout(request, response, auth);
+        }
+        return "redirect:/login?logout";
     }
 
     @GetMapping(value = "/")
@@ -70,10 +76,15 @@ public class LoginController {
     }
 
     @GetMapping(value = "/home")
-    private String login(Authentication authentication, Principal principal, Model modelMap) {
+    private String login(HttpServletResponse response, Authentication authentication, Principal principal, Model modelMap) {
         if(principal == null) {
             return HREF_BASE + "/login";
         }
+
+        response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+        response.setHeader("Pragma", "no-cache");
+        response.setDateHeader("Expires", 0);
+
         modelMap.addAttribute("username", principal.getName());
 
         String username = authentication.getName(); // email ou identifiant

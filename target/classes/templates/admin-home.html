@@ -29,7 +29,7 @@
 <nav class="navbar navbar-light bg-light">
     <span class="navbar-brand mb-0 h1">Rendez-Vous</span>
 
-    <form class="form-inline ml-auto" action="/perform_logout" method="post">
+    <form class="form-inline ml-auto" th:action="@{/logout}" method="post">
         <button type="submit" class="btn btn-outline-danger">
             <i class="fab fa-google"></i> Logout
         </button>
