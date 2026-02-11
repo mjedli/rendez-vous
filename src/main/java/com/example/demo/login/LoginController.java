@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -23,6 +25,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import java.security.Principal;
 import java.time.format.DateTimeFormatter;
+import java.util.Collection;
 import java.util.Random;
 
 @Controller
@@ -67,11 +70,17 @@ public class LoginController {
     }
 
     @GetMapping(value = "/home")
-    private String login(Principal principal, Model modelMap) {
+    private String login(Authentication authentication, Principal principal, Model modelMap) {
         if(principal == null) {
             return HREF_BASE + "/login";
         }
         modelMap.addAttribute("username", principal.getName());
+
+        String username = authentication.getName(); // email ou identifiant
+        Collection<? extends GrantedAuthority> roles = authentication.getAuthorities();
+
+        modelMap.addAttribute("username", username);
+        modelMap.addAttribute("roles", roles);
 
         //String idBarber = parismonService.findParismonByMail(principal.getName()).getId();
 
@@ -81,8 +90,16 @@ public class LoginController {
 
         modelMap.addAttribute("homeObject", homeObject);
 
-        return "paybuy/index";
+        // Exemple : redirection selon le rôle
+        if (roles.stream().anyMatch(r -> r.getAuthority().equals("ROLE_ADMIN"))) {
+            return "admin-home";
+        } else if (roles.stream().anyMatch(r -> r.getAuthority().equals("ROLE_USER"))) {
+            return "user-home";
+        }
+
+        return "access-denied";
     }
+
 
     @GetMapping(value= HREF_BASE + "/regisration/{id}")
     private String findBarberByActiveToken(@PathVariable String id) {
@@ -104,6 +121,8 @@ public class LoginController {
             LoginPojo barber = new LoginPojo();
             barber.setEmail(barber1.getEmail());
             barber.setPassword(passwordEncoder.encode(barber1.getPassword()));
+
+            barber.setRole(barber1.getRole());
 
             // TODO Bouchon to remove
             barber.setActive(true);

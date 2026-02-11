@@ -55,6 +55,10 @@ public class SecurityConfig {
                                 "/js/**",
                                 "/images/**"
                         ).permitAll()
+                        // Accès réservé aux utilisateurs avec le rôle ADMIN
+                        .requestMatchers("/admin/**").hasRole("ADMIN")
+                        // Accès réservé aux utilisateurs avec le rôle USER
+                        .requestMatchers("/user/**").hasRole("USER")
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form

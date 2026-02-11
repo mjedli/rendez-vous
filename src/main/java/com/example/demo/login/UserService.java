@@ -2,6 +2,7 @@ package com.example.demo.login;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -85,9 +86,12 @@ public class UserService implements UserDetailsService  {
 
 			@Override
 			public Collection<? extends GrantedAuthority> getAuthorities() {
-				// TODO Auto-generated method stub
-				return Arrays.asList(new SimpleGrantedAuthority("ROLE_USER"));
+				if (barber != null && barber.getActive()) {
+					return List.of(new SimpleGrantedAuthority("ROLE_" + barber.getRole()));
+				}
+				return List.of();
 			}
+
 		};
 
 

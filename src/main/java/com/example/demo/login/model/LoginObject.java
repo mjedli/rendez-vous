@@ -10,6 +10,17 @@ public class LoginObject {
 	private String password;
 	private String repassword;
 	private String activeMailToken;
+
+	private String role;
+
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
+	}
+
 	/**
 	 * @return the email
 	 */

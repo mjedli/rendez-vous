@@ -25,6 +25,17 @@ public class LoginPojo {
 	
 	private Boolean active = false;
 	private String activeMailToken = "";
+
+	private String role = "";
+
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
+	}
+
 	/**
 	 * @return the id
 	 */
@@ -97,5 +108,5 @@ public class LoginPojo {
 	public void setActiveMailToken(String activeMailToken) {
 		this.activeMailToken = activeMailToken;
 	}
-	
+
 }
