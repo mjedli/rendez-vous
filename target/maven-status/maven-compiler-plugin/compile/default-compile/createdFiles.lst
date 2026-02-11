@@ -4,7 +4,9 @@ com/example/demo/login/model/HomeObject.class
 com/example/demo/login/ParismonService.class
 com/example/demo/DemoApplication.class
 com/example/demo/login/configure/SecurePageNoCacheFilter.class
+com/example/demo/user/UserController.class
 com/example/demo/login/configure/AppConfig.class
+com/example/demo/admin/AdminController.class
 com/example/demo/login/LoginController.class
 com/example/demo/login/UserService$1.class
 com/example/demo/login/configure/AppConfig$1.class

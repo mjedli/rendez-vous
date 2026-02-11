@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<!-- templates/fragments/toolbar.html -->
+<div th:fragment="toolbar-user">
+  <nav class="navbar navbar-light bg-light">
+    <span class="navbar-brand mb-0 h1">Rendez-Vous</span>
+
+    <div class="d-flex ml-auto">
+
+      <!-- Bouton Menu -->
+      <form class="form-inline mr-2" th:action="@{/home}" method="get">
+        <button type="submit" class="btn btn-outline-danger">
+          <i class="fas fa-cog"></i> Menu
+        </button>
+      </form>
+
+      <!-- Bouton Logout -->
+      <form class="form-inline" th:action="@{/logout}" method="post">
+        <button type="submit" class="btn btn-outline-danger">
+          <i class="fab fa-google"></i> Logout
+        </button>
+      </form>
+
+    </div>
+  </nav>
+</div>

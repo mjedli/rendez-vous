@@ -1,0 +1,68 @@
+﻿<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!--
+    <meta th:name="_csrf" th:content="${_csrf.token}"/>
+    <!-- default header name is X-CSRF-TOKEN -->
+    <!--<meta th:name="_csrf_header" th:content="${_csrf.headerName}"/> -->
+    <!-- ... -->
+
+    <title>Please sign in</title>
+
+    <link rel="icon" type="image/png" th:href="@{/content/favicon.png}"/>
+
+    <link rel="stylesheet" href="/content/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/content/signin.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+
+</head>
+<body>
+
+<!-- As a heading -->
+<div th:replace="user/toolbar :: toolbar-user"></div>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<div class="container">
+
+    <h2>Bienvenue, <span th:text="${username}">Utilisateur</span>!</h2>
+    <br><br>
+    <p>Vos rôles :</p>
+    <ul>
+        <li th:each="role : ${roles}" th:text="${role.authority}"></li>
+    </ul>
+    <br><br>
+    <p>Menu :</p>
+
+    <ul>
+        <li><a href="/home">Menu</a></li>
+        <li><a href="/user/rendezvous/list">List de mes rendez-vous</a></li>
+    </ul>
+
+
+</div>
+</body>
+
+
+<script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+
+<script
+        src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script
+        src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+</html>
