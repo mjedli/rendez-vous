@@ -55,12 +55,12 @@
     <p>
     <form action="/admin/rendezvous/add" method="post">
         <label>Choisir une date :</label>
-    <input type="date"
+    <input type="date" name="date"
            th:min="${#temporals.format(#temporals.createNow().plusDays(1), 'yyyy-MM-dd')}"
-           class="form-control">
-    <label for="heure">Choisir une heure :</label>
-        <input type="heure" id="heure" name="heure" class="form-control">
-        <br>
+           class="form-control" required>
+    <label>Choisir une heure :</label>
+    <input type="time" name="heure" class="form-control" required>
+    <br>
         <button type="submit" class="btn btn-primary"> Créer </button>
     </form>
 

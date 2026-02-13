@@ -8,6 +8,8 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.List;
+
 @Repository
 public class AdminRepository {
 
@@ -30,5 +32,9 @@ public class AdminRepository {
             return b;
         }
         return mongoOperations.insert(rendezvous);
+    }
+
+    public List<RendezVous> getListRendezVous() {
+        return mongoOperations.findAll(RendezVous.class);
     }
 }

@@ -49,6 +49,18 @@
         <li><a href="/home">Menu</a></li>
         <li><a href="/admin/rendezvous/create">Création de rendez-vous</a></li>
     </ul>
+    <br><br>
+
+    <div th:each="rdv, iterStat : ${listrendezvous}">
+        <div th:if="${iterStat.index == 0 or rdv.date != listrendezvous[iterStat.index - 1].date}">
+            <hr>
+            <h5 th:text="${rdv.date}">Date</h5>
+        </div>
+        <div>
+            <span th:text="${rdv.heure}">Heure</span>
+        </div>
+    </div>
+
 
 
 </div>
