@@ -34,7 +34,6 @@
 <br>
 <br>
 <br>
-<br>
 <div class="container">
 
     <h2>Bienvenue, <span th:text="${username}">Utilisateur</span>!</h2>
@@ -50,6 +49,20 @@
         <li><a href="/home">Menu</a></li>
         <li><a href="/admin/rendezvous/list">List de mes rendez-vous</a></li>
     </ul>
+    <br><br>
+    <div class="alert alert-danger" th:if="${param.error}">Rendez-vous existe.</div>
+    <div th:if="${param.sucess}" class="alert alert-success">Rendez-vous ajouté.</div>
+    <p>
+    <form action="/admin/rendezvous/add" method="post">
+        <label>Choisir une date :</label>
+    <input type="date"
+           th:min="${#temporals.format(#temporals.createNow().plusDays(1), 'yyyy-MM-dd')}"
+           class="form-control">
+    <label for="heure">Choisir une heure :</label>
+        <input type="heure" id="heure" name="heure" class="form-control">
+        <br>
+        <button type="submit" class="btn btn-primary"> Créer </button>
+    </form>
 
 
 </div>

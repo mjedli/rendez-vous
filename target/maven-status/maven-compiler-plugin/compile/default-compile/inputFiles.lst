@@ -1,5 +1,8 @@
 /Users/mjedli/developper/Workspace IntelliJ/rendez-vous/src/main/java/com/example/demo/DemoApplication.java
 /Users/mjedli/developper/Workspace IntelliJ/rendez-vous/src/main/java/com/example/demo/admin/AdminController.java
+/Users/mjedli/developper/Workspace IntelliJ/rendez-vous/src/main/java/com/example/demo/admin/AdminRepository.java
+/Users/mjedli/developper/Workspace IntelliJ/rendez-vous/src/main/java/com/example/demo/admin/AdminService.java
+/Users/mjedli/developper/Workspace IntelliJ/rendez-vous/src/main/java/com/example/demo/admin/model/RendezVous.java
 /Users/mjedli/developper/Workspace IntelliJ/rendez-vous/src/main/java/com/example/demo/login/LoginController.java
 /Users/mjedli/developper/Workspace IntelliJ/rendez-vous/src/main/java/com/example/demo/login/ParismonRepository.java
 /Users/mjedli/developper/Workspace IntelliJ/rendez-vous/src/main/java/com/example/demo/login/ParismonService.java
