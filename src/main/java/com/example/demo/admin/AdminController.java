@@ -57,6 +57,27 @@ public class AdminController {
         }
     }
 
+    @PostMapping("/admin/rendezvous/delete")
+    public String deleteRendezvous(@ModelAttribute RendezVous rendezvous, Authentication authentication, ModelMap modelMap) {
+
+        try {
+
+            String username = authentication.getName(); // email ou identifiant
+            Collection<? extends GrantedAuthority> roles = authentication.getAuthorities();
+
+            modelMap.addAttribute("username", username);
+            modelMap.addAttribute("roles", roles);
+
+            adminService.deleteRendezVous(rendezvous);
+
+            return "redirect:/admin/rendezvous/list";
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return "error";
+        }
+    }
+
     @GetMapping("/admin/rendezvous/list")
     public String listRendezvous(Authentication authentication, ModelMap modelMap){
 

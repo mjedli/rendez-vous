@@ -21,4 +21,8 @@ public class AdminService {
     public List<RendezVous> getListRendezVous() {
         return adminRepository.getListRendezVous();
     }
+
+    public void deleteRendezVous(RendezVous rendezvous) {
+        adminRepository.deleteRendezVous(rendezvous);
+    }
 }

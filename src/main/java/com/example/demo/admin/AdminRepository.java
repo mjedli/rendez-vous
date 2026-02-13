@@ -37,4 +37,8 @@ public class AdminRepository {
     public List<RendezVous> getListRendezVous() {
         return mongoOperations.findAll(RendezVous.class);
     }
+
+    public void deleteRendezVous(RendezVous rendezvous) {
+        mongoOperations.remove(rendezvous);
+    }
 }
