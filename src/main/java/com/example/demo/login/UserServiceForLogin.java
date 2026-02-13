@@ -1,10 +1,8 @@
 package com.example.demo.login;
 
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -20,11 +18,11 @@ import com.example.demo.login.model.*;
  *
  */
 @Service
-public class UserService implements UserDetailsService  {
+public class UserServiceForLogin implements UserDetailsService  {
 
 	ParismonRepository parismonRepository;
 
-	public UserService(ParismonRepository parismonRepository) {
+	public UserServiceForLogin(ParismonRepository parismonRepository) {
 		this.parismonRepository = parismonRepository;
 	}
 

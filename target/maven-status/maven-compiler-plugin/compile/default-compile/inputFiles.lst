@@ -6,7 +6,7 @@
 /Users/mjedli/developper/Workspace IntelliJ/rendez-vous/src/main/java/com/example/demo/login/LoginController.java
 /Users/mjedli/developper/Workspace IntelliJ/rendez-vous/src/main/java/com/example/demo/login/ParismonRepository.java
 /Users/mjedli/developper/Workspace IntelliJ/rendez-vous/src/main/java/com/example/demo/login/ParismonService.java
-/Users/mjedli/developper/Workspace IntelliJ/rendez-vous/src/main/java/com/example/demo/login/UserService.java
+/Users/mjedli/developper/Workspace IntelliJ/rendez-vous/src/main/java/com/example/demo/login/UserServiceForLogin.java
 /Users/mjedli/developper/Workspace IntelliJ/rendez-vous/src/main/java/com/example/demo/login/configure/AppConfig.java
 /Users/mjedli/developper/Workspace IntelliJ/rendez-vous/src/main/java/com/example/demo/login/configure/SecurePageNoCacheFilter.java
 /Users/mjedli/developper/Workspace IntelliJ/rendez-vous/src/main/java/com/example/demo/login/configure/SecurityConfig.java
@@ -14,3 +14,5 @@
 /Users/mjedli/developper/Workspace IntelliJ/rendez-vous/src/main/java/com/example/demo/login/model/LoginObject.java
 /Users/mjedli/developper/Workspace IntelliJ/rendez-vous/src/main/java/com/example/demo/login/model/LoginPojo.java
 /Users/mjedli/developper/Workspace IntelliJ/rendez-vous/src/main/java/com/example/demo/user/UserController.java
+/Users/mjedli/developper/Workspace IntelliJ/rendez-vous/src/main/java/com/example/demo/user/UserRepository.java
+/Users/mjedli/developper/Workspace IntelliJ/rendez-vous/src/main/java/com/example/demo/user/UserService.java

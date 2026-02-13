@@ -15,7 +15,6 @@ public class RendezVous {
 	@Id
 	@NonNull
 	private String id;
-	
 	@NonNull
 	@Indexed(unique=true)
 	private String date = "";
@@ -23,6 +22,20 @@ public class RendezVous {
 	@NonNull
 	@Indexed(unique=true)
 	private String heure = "";
+
+	@NonNull
+	@Indexed(unique=true)
+	private String reservedId = "";
+
+
+	@NonNull
+	public String getReservedId() {
+		return reservedId;
+	}
+
+	public void setReservedId(@NonNull String reservedId) {
+		this.reservedId = reservedId;
+	}
 
 	@NonNull
 	public String getId() {
