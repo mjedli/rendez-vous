@@ -41,4 +41,13 @@ public class AdminRepository {
     public void deleteRendezVous(RendezVous rendezvous) {
         mongoOperations.remove(rendezvous);
     }
+
+    public void deleteRendezVousDate(String rendezvous) {
+        Query removeQuery = new Query(
+                Criteria.where("date").is(rendezvous)
+        );
+
+        mongoOperations.remove(removeQuery, RendezVous.class);
+
+    }
 }

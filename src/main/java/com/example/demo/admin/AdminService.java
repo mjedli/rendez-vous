@@ -25,4 +25,8 @@ public class AdminService {
     public void deleteRendezVous(RendezVous rendezvous) {
         adminRepository.deleteRendezVous(rendezvous);
     }
+
+    public void deleteRendezVousDate(String rendezvous) {
+        adminRepository.deleteRendezVousDate(rendezvous);
+    }
 }

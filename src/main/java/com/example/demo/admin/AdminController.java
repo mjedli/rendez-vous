@@ -2,6 +2,7 @@ package com.example.demo.admin;
 
 import com.example.demo.admin.model.RendezVous;
 import org.springframework.data.domain.Sort;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Controller;
@@ -9,6 +10,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -69,6 +71,27 @@ public class AdminController {
             modelMap.addAttribute("roles", roles);
 
             adminService.deleteRendezVous(rendezvous);
+
+            return "redirect:/admin/rendezvous/list";
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return "error";
+        }
+    }
+
+    @PostMapping("/admin/rendezvous/date/delete")
+    public String deleteRendezvousDate(@RequestParam("date") String date, Authentication authentication, ModelMap modelMap) {
+
+        try {
+
+            String username = authentication.getName(); // email ou identifiant
+            Collection<? extends GrantedAuthority> roles = authentication.getAuthorities();
+
+            modelMap.addAttribute("username", username);
+            modelMap.addAttribute("roles", roles);
+
+            adminService.deleteRendezVousDate(date);
 
             return "redirect:/admin/rendezvous/list";
 
