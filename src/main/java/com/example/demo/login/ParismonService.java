@@ -7,31 +7,30 @@ import com.example.demo.login.model.*;
 
 /**
  * @author mjedli
- *
  */
 @Service
 public class ParismonService {
 
-	ParismonRepository parismonRepository;
+    ParismonRepository parismonRepository;
 
-	public ParismonService(ParismonRepository parismonRepository) {
-		this.parismonRepository = parismonRepository;
-	}
+    public ParismonService(ParismonRepository parismonRepository) {
+        this.parismonRepository = parismonRepository;
+    }
 
-	public LoginPojo findParismonByMail(String mail) {
-		return parismonRepository.findByMail(mail);
-	}
+    public LoginPojo findParismonByMail(String mail) {
+        return parismonRepository.findByMail(mail);
+    }
 
-	public LoginPojo findParismonByActiveToken(String id) {
-		return parismonRepository.findParismonByActiveToken(id);
-	}
+    public LoginPojo findParismonByActiveToken(String id) {
+        return parismonRepository.findParismonByActiveToken(id);
+    }
 
-	public void updateParismon(LoginPojo parismon) {
-		parismonRepository.updateParismon(parismon);
-	}
+    public void updateParismon(LoginPojo parismon) {
+        parismonRepository.updateParismon(parismon);
+    }
 
-	public LoginPojo insertParismon(LoginPojo parismon) {
-		return parismonRepository.insert(parismon);
-	}
+    public LoginPojo insertParismon(LoginPojo parismon) {
+        return parismonRepository.insert(parismon);
+    }
 
 }

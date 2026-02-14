@@ -74,11 +74,12 @@
                     <tr align="left">
                         <td th:if="${rdv.reservedId != null and rdv.reservedId != ''}">
                             <form th:action="@{/user/rendezvous/annuler}" method="post" th:object="${rdv}">
-                                <input type="hidden" name="id" th:value="${rdv.id}" />
-                                <input type="hidden" th:name="date" th:value="${rdv.date}" />
-                                <input type="hidden" th:name="heure" th:value="${rdv.heure}" />
-                                <input type="hidden" th:name="reservedId" th:value="${rdv.reservedId}" />
-                                <button type="submit" style="border: none; background: none; cursor: pointer;" title="Supprimer">
+                                <input type="hidden" name="id" th:value="${rdv.id}"/>
+                                <input type="hidden" th:name="date" th:value="${rdv.date}"/>
+                                <input type="hidden" th:name="heure" th:value="${rdv.heure}"/>
+                                <input type="hidden" th:name="reservedId" th:value="${rdv.reservedId}"/>
+                                <button type="submit" style="border: none; background: none; cursor: pointer;"
+                                        title="Supprimer">
                                     <span class="material-icons" style="color: red;">delete</span>
                                 </button>
                             </form>
@@ -86,10 +87,10 @@
 
                         <td>
             <form th:action="@{/user/rendezvous/select}" method="post" th:object="${rdv}">
-                <input type="hidden" name="id" th:value="${rdv.id}" />
-                <input type="hidden" th:name="date" th:value="${rdv.date}" />
-                <input type="hidden" th:name="heure" th:value="${rdv.heure}" />
-                <input type="hidden" th:name="reservedId" th:value="${rdv.reservedId}" />
+                <input type="hidden" name="id" th:value="${rdv.id}"/>
+                <input type="hidden" th:name="date" th:value="${rdv.date}"/>
+                <input type="hidden" th:name="heure" th:value="${rdv.heure}"/>
+                <input type="hidden" th:name="reservedId" th:value="${rdv.reservedId}"/>
                 <span th:if="${rdv.reservedId != null and rdv.reservedId != ''}">
                     <button type="submit" style="border: none; background: none; cursor: pointer;" title="Valider">
                         <span class="material-icons" style="color: green;">check</span>
@@ -104,7 +105,7 @@
                         </td>
                     </tr>
                 </table>
-            <!-- Formulaire de suppression -->
+                <!-- Formulaire de suppression -->
         </div>
     </div>
 
@@ -113,7 +114,8 @@
 </body>
 
 
-<script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+        crossorigin="anonymous"></script>
 
 <script
         src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"

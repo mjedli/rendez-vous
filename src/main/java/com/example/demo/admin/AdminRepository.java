@@ -26,8 +26,8 @@ public class AdminRepository {
 
     public RendezVous addRendezvous(RendezVous rendezvous) {
         RendezVous b = findByDateAndHeure(rendezvous.getDate(), rendezvous.getHeure());
-        if ( (b!=null) && (b.getDate() != null) && (b.getDate().equals(rendezvous.getDate()) )
-                && (b.getHeure() != null) && (b.getHeure().equals(rendezvous.getHeure()) ) ) {
+        if ((b != null) && (b.getDate() != null) && (b.getDate().equals(rendezvous.getDate()))
+                && (b.getHeure() != null) && (b.getHeure().equals(rendezvous.getHeure()))) {
             b.setHeure("exist");
             return b;
         }

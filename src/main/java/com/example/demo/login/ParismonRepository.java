@@ -12,43 +12,42 @@ import com.example.demo.login.model.*;
 
 /**
  * @author mjedli
- *
  */
 @Repository
 public class ParismonRepository {
 
-	private MongoOperations mongoOperations;
+    private MongoOperations mongoOperations;
 
-	public ParismonRepository(MongoOperations mongoOperations) {
-		this.mongoOperations = mongoOperations;
-	}
+    public ParismonRepository(MongoOperations mongoOperations) {
+        this.mongoOperations = mongoOperations;
+    }
 
-	public LoginPojo findByMail(String mail) {
-		Query searchQuery = new Query(Criteria.where("email").is(mail));
-		return mongoOperations.findOne(searchQuery, LoginPojo.class);
-	}
+    public LoginPojo findByMail(String mail) {
+        Query searchQuery = new Query(Criteria.where("email").is(mail));
+        return mongoOperations.findOne(searchQuery, LoginPojo.class);
+    }
 
-	public User findByUser(String mail) {
-		Query searchQuery = new Query(Criteria.where("email").is(mail));
-		return mongoOperations.findOne(searchQuery, User.class);
-	}
+    public User findByUser(String mail) {
+        Query searchQuery = new Query(Criteria.where("email").is(mail));
+        return mongoOperations.findOne(searchQuery, User.class);
+    }
 
-	public LoginPojo insert(LoginPojo parismon) {
-		LoginPojo b = findByMail(parismon.getEmail());
-		if ( (b!=null) && (b.getEmail() != null) && (b.getEmail().equals(parismon.getEmail()) ) ) {
-			b.setEmail("exist");
-			return b;
-		}
-		return mongoOperations.insert(parismon);
-	}
-	
-	public LoginPojo updateParismon(LoginPojo parismon) {		
-		return mongoOperations.save(parismon);
-	}
-	
-	public LoginPojo findParismonByActiveToken(String id) {
-		Query searchQuery = new Query(Criteria.where("activeMailToken").is(id));
-		return mongoOperations.findOne(searchQuery, LoginPojo.class);
-	}
+    public LoginPojo insert(LoginPojo parismon) {
+        LoginPojo b = findByMail(parismon.getEmail());
+        if ((b != null) && (b.getEmail() != null) && (b.getEmail().equals(parismon.getEmail()))) {
+            b.setEmail("exist");
+            return b;
+        }
+        return mongoOperations.insert(parismon);
+    }
+
+    public LoginPojo updateParismon(LoginPojo parismon) {
+        return mongoOperations.save(parismon);
+    }
+
+    public LoginPojo findParismonByActiveToken(String id) {
+        Query searchQuery = new Query(Criteria.where("activeMailToken").is(id));
+        return mongoOperations.findOne(searchQuery, LoginPojo.class);
+    }
 
 }

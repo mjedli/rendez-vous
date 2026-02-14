@@ -7,60 +7,59 @@ import org.springframework.lang.NonNull;
 
 /**
  * @author mjedli
- *
  */
 @Document
 public class RendezVous {
-	
-	@Id
-	@NonNull
-	private String id;
-	@NonNull
-	@Indexed(unique=true)
-	private String date = "";
 
-	@NonNull
-	@Indexed(unique=true)
-	private String heure = "";
+    @Id
+    @NonNull
+    private String id;
+    @NonNull
+    @Indexed(unique = true)
+    private String date = "";
 
-	@NonNull
-	@Indexed(unique=true)
-	private String reservedId = "";
+    @NonNull
+    @Indexed(unique = true)
+    private String heure = "";
+
+    @NonNull
+    @Indexed(unique = true)
+    private String reservedId = "";
 
 
-	@NonNull
-	public String getReservedId() {
-		return reservedId;
-	}
+    @NonNull
+    public String getReservedId() {
+        return reservedId;
+    }
 
-	public void setReservedId(@NonNull String reservedId) {
-		this.reservedId = reservedId;
-	}
+    public void setReservedId(@NonNull String reservedId) {
+        this.reservedId = reservedId;
+    }
 
-	@NonNull
-	public String getId() {
-		return id;
-	}
+    @NonNull
+    public String getId() {
+        return id;
+    }
 
-	public void setId(@NonNull String id) {
-		this.id = id;
-	}
+    public void setId(@NonNull String id) {
+        this.id = id;
+    }
 
-	@NonNull
-	public String getDate() {
-		return date;
-	}
+    @NonNull
+    public String getDate() {
+        return date;
+    }
 
-	public void setDate(@NonNull String date) {
-		this.date = date;
-	}
+    public void setDate(@NonNull String date) {
+        this.date = date;
+    }
 
-	@NonNull
-	public String getHeure() {
-		return heure;
-	}
+    @NonNull
+    public String getHeure() {
+        return heure;
+    }
 
-	public void setHeure(@NonNull String heure) {
-		this.heure = heure;
-	}
+    public void setHeure(@NonNull String heure) {
+        this.heure = heure;
+    }
 }

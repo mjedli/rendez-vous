@@ -49,10 +49,10 @@ public class LoginController {
         this.passwordEncoder = passwordEncoder;
     }
 
-    @Value( "${server.address}" )
+    @Value("${server.address}")
     String server;
 
-    @Value( "${server.port}" )
+    @Value("${server.port}")
     String port;
 
     private JavaMailSender emailSender;
@@ -77,7 +77,7 @@ public class LoginController {
 
     @GetMapping(value = "/home")
     private String login(HttpServletResponse response, Authentication authentication, Principal principal, Model modelMap) {
-        if(principal == null) {
+        if (principal == null) {
             return HREF_BASE + "/login";
         }
 
@@ -112,7 +112,7 @@ public class LoginController {
     }
 
 
-    @GetMapping(value= HREF_BASE + "/regisration/{id}")
+    @GetMapping(value = HREF_BASE + "/regisration/{id}")
     private String findBarberByActiveToken(@PathVariable String id) {
         LoginPojo parismon = parismonService.findParismonByActiveToken(id);
         parismon.setActive(true);
@@ -124,7 +124,7 @@ public class LoginController {
     private String insertBarberModel(@ModelAttribute LoginObject barber1, Model modelMap) {
         try {
 
-            if(!barber1.getPassword().equals(barber1.getRepassword())) {
+            if (!barber1.getPassword().equals(barber1.getRepassword())) {
                 modelMap.addAttribute("passworderror", "passworderror");
                 return "/login/registration";
             }
@@ -175,7 +175,7 @@ public class LoginController {
 
             LoginPojo barberTemp = parismonService.insertParismon(barber);
 
-            if("exist".equals(barberTemp.getEmail())) {
+            if ("exist".equals(barberTemp.getEmail())) {
                 modelMap.addAttribute("exist", "exist");
                 return "/login/registration";
             } else {
@@ -185,16 +185,16 @@ public class LoginController {
 
             return "active";
 
-        } catch(Exception e) {
+        } catch (Exception e) {
             return null;
         }
     }
 
-    @GetMapping(value= HREF_BASE + "/forgetpassword/{id}")
+    @GetMapping(value = HREF_BASE + "/forgetpassword/{id}")
     private String forgetPassword(@PathVariable String id, ModelMap modelMap) {
         LoginPojo barber = parismonService.findParismonByActiveToken(id);
         modelMap.addAttribute("barber", barber);
-        if(barber != null && id.equals(barber.getActiveMailToken())) {
+        if (barber != null && id.equals(barber.getActiveMailToken())) {
             return HREF_BASE + "/password";
         } else {
             return HREF_BASE + "/forget";
@@ -204,7 +204,7 @@ public class LoginController {
     @PostMapping(value = HREF_BASE + "/update/password")
     private String updatePassword(@ModelAttribute LoginPojo barber) {
         LoginPojo barber1 = parismonService.findParismonByMail(barber.getEmail());
-        if(barber1 != null && barber1.getActiveMailToken().equals(barber.getActiveMailToken())) {
+        if (barber1 != null && barber1.getActiveMailToken().equals(barber.getActiveMailToken())) {
             barber1.setPassword(passwordEncoder.encode(barber.getPassword()));
             barber1.setActiveMailToken("");
             parismonService.updateParismon(barber1);
@@ -220,7 +220,7 @@ public class LoginController {
 
             LoginPojo barber1 = parismonService.findParismonByMail(barber.getEmail());
 
-            if(barber1 != null && barber1.getEmail().equals(barber.getEmail())) {
+            if (barber1 != null && barber1.getEmail().equals(barber.getEmail())) {
 
                 MimeMessage mimeMessage = emailSender.createMimeMessage();
                 MimeMessageHelper message = new MimeMessageHelper(mimeMessage, "utf-8");
@@ -266,7 +266,7 @@ public class LoginController {
 
             } else
                 return HREF_BASE + "/forget";
-        } catch(Exception e) {
+        } catch (Exception e) {
             return null;
         }
     }

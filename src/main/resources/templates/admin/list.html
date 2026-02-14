@@ -64,8 +64,9 @@
                     </td>
                     <td align="left">
                         <form th:action="@{/admin/rendezvous/date/delete}" method="post" th:object="${rdv}">
-                            <input type="hidden" th:name="date" th:value="${rdv.date}" />
-                            <button type="submit" style="border: none; background: none; cursor: pointer;" title="Supprimer">
+                            <input type="hidden" th:name="date" th:value="${rdv.date}"/>
+                            <button type="submit" style="border: none; background: none; cursor: pointer;"
+                                    title="Supprimer">
                                 <span class="material-icons" style="color: red;">delete</span>
                             </button>
                         </form>
@@ -80,9 +81,9 @@
 
             <!-- Formulaire de suppression -->
             <form th:action="@{/admin/rendezvous/delete}" method="post" th:object="${rdv}">
-                <input type="hidden" name="id" th:value="${rdv.id}" />
-                <input type="hidden" th:name="date" th:value="${rdv.date}" />
-                <input type="hidden" th:name="heure" th:value="${rdv.heure}" />
+                <input type="hidden" name="id" th:value="${rdv.id}"/>
+                <input type="hidden" th:name="date" th:value="${rdv.date}"/>
+                <input type="hidden" th:name="heure" th:value="${rdv.heure}"/>
                 <button type="submit" style="border: none; background: none; cursor: pointer;" title="Supprimer">
                     <span class="material-icons" style="color: red;">delete</span>
                 </button>
@@ -91,13 +92,12 @@
     </div>
 
 
-
-
 </div>
 </body>
 
 
-<script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+        crossorigin="anonymous"></script>
 
 <script
         src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"

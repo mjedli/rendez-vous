@@ -25,7 +25,7 @@ public class AdminController {
     }
 
     @GetMapping("/admin/rendezvous/create")
-    public String creationRendezvous(Authentication authentication, ModelMap modelMap){
+    public String creationRendezvous(Authentication authentication, ModelMap modelMap) {
 
         String username = authentication.getName(); // email ou identifiant
         Collection<? extends GrantedAuthority> roles = authentication.getAuthorities();
@@ -47,7 +47,7 @@ public class AdminController {
             modelMap.addAttribute("username", username);
             modelMap.addAttribute("roles", roles);
 
-            if(adminService.addRendezvous(rendezvous).getHeure().equals("exist")) {
+            if (adminService.addRendezvous(rendezvous).getHeure().equals("exist")) {
                 return "redirect:/admin/rendezvous/create?error";
             }
 
@@ -102,7 +102,7 @@ public class AdminController {
     }
 
     @GetMapping("/admin/rendezvous/list")
-    public String listRendezvous(Authentication authentication, ModelMap modelMap){
+    public String listRendezvous(Authentication authentication, ModelMap modelMap) {
 
         try {
 
@@ -114,7 +114,7 @@ public class AdminController {
             modelMap.addAttribute("username", username);
             modelMap.addAttribute("roles", roles);
 
-           liste.sort(Comparator
+            liste.sort(Comparator
                     .comparing((RendezVous r) -> LocalDate.parse(r.getDate()))
                     .thenComparing(r -> LocalTime.parse(r.getHeure()))
                     .reversed());

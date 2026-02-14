@@ -9,12 +9,11 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
  * @author mjedli
- *
  */
 
 @Configuration
 public class AppConfig {
-    
+
     @Bean
     public WebMvcConfigurer forwardToIndex() {
         return new WebMvcConfigurer() {
@@ -23,14 +22,14 @@ public class AppConfig {
                 registry.addViewController("/loginApp").setViewName("login/login");
                 registry.addViewController("/registrationApp").setViewName("login/registration");
                 registry.addViewController("/forgetApp").setViewName("login/forget");
-                
+
             }
         };
     }
-    
+
     @Bean
     public PasswordEncoder encoder() {
         return new BCryptPasswordEncoder();
     }
-        
+
 }

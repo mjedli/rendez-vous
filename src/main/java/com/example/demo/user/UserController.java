@@ -25,7 +25,7 @@ public class UserController {
     }
 
     @GetMapping("/user/rendezvous/choisir")
-    public String creationRendezvous(Authentication authentication, ModelMap modelMap){
+    public String creationRendezvous(Authentication authentication, ModelMap modelMap) {
 
         try {
 
@@ -52,7 +52,7 @@ public class UserController {
     }
 
     @PostMapping("/user/rendezvous/select")
-    public String selectRendezvous(@ModelAttribute RendezVous rendezVous, Authentication authentication, ModelMap modelMap){
+    public String selectRendezvous(@ModelAttribute RendezVous rendezVous, Authentication authentication, ModelMap modelMap) {
 
         try {
 
@@ -74,7 +74,7 @@ public class UserController {
     }
 
     @PostMapping("/user/rendezvous/annuler")
-    public String annulerRendezVous(@ModelAttribute RendezVous rendezVous, Authentication authentication, ModelMap modelMap){
+    public String annulerRendezVous(@ModelAttribute RendezVous rendezVous, Authentication authentication, ModelMap modelMap) {
 
         try {
 
@@ -96,7 +96,7 @@ public class UserController {
     }
 
     @GetMapping("/user/rendezvous/list")
-    public String listRendezvous(Authentication authentication, ModelMap modelMap){
+    public String listRendezvous(Authentication authentication, ModelMap modelMap) {
 
         try {
 
@@ -139,7 +139,6 @@ public class UserController {
             return "error";
         }
     }
-
 
 
 }
