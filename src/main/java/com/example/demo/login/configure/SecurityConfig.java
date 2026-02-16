@@ -10,6 +10,9 @@ import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.web.context.SecurityContextHolderFilter;
+
+import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
 @EnableWebSecurity
@@ -69,7 +72,10 @@ public class SecurityConfig {
                         .logoutSuccessUrl("/loginApp?logout")
                         .permitAll()
                 )
-                .csrf(csrf -> csrf.disable());
+                .csrf(csrf -> csrf.disable())
+                .addFilterAfter(new NoCacheFilter(), SecurityContextHolderFilter.class)
+                .headers(headers -> headers .cacheControl(withDefaults())); // active les headers anti-cache );
+
 
         return http.build();
     }

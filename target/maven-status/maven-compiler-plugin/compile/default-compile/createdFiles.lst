@@ -7,7 +7,6 @@ com/example/demo/admin/AdminRepository.class
 com/example/demo/login/ParismonService.class
 com/example/demo/user/UserService.class
 com/example/demo/DemoApplication.class
-com/example/demo/login/configure/SecurePageNoCacheFilter.class
 com/example/demo/user/UserController.class
 com/example/demo/login/configure/AppConfig.class
 com/example/demo/user/UserRepository.class
@@ -18,3 +17,4 @@ com/example/demo/login/configure/AppConfig$1.class
 com/example/demo/login/ParismonRepository.class
 com/example/demo/login/model/LoginPojo.class
 com/example/demo/admin/AdminService.class
+com/example/demo/login/configure/NoCacheFilter.class
