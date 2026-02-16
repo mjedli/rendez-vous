@@ -72,7 +72,7 @@ public class LoginController {
 
     @GetMapping(value = "/")
     private String start() {
-        return "paybuy/index";
+        return "redirect:/home";
     }
 
     @GetMapping(value = "/home")
