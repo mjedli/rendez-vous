@@ -29,20 +29,12 @@ public class UserController {
 
         try {
 
-            List<RendezVous> liste = userService.getListRendezVous();
-
             String username = authentication.getName(); // email ou identifiant
             Collection<? extends GrantedAuthority> roles = authentication.getAuthorities();
 
             modelMap.addAttribute("username", username);
             modelMap.addAttribute("roles", roles);
 
-            liste.sort(Comparator
-                    .comparing((RendezVous r) -> LocalDate.parse(r.getDate()))
-                    .thenComparing(r -> LocalTime.parse(r.getHeure()))
-                    .reversed());
-
-            modelMap.addAttribute("listrendezvous", liste);
             return "user/creation";
 
         } catch (Exception e) {
@@ -64,7 +56,7 @@ public class UserController {
 
             userService.selectRendezvous(rendezVous, username);
 
-            return "redirect:/user/rendezvous/choisir";
+            return "redirect:/user/rendezvous/date?date=" + rendezVous.getDate();
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -86,7 +78,7 @@ public class UserController {
 
             userService.annulerRendezvous(rendezVous);
 
-            return "redirect:/user/rendezvous/choisir";
+            return "redirect:/user/rendezvous/date?date=" + rendezVous.getDate();
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -118,6 +110,32 @@ public class UserController {
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
+            return "error";
+        }
+    }
+
+    @GetMapping("/user/rendezvous/date")
+    public String getRendezVousPerDate(@RequestParam String date, Authentication authentication, ModelMap modelMap) {
+        try {
+            String username = authentication.getName(); // email ou identifiant
+            Collection<? extends GrantedAuthority> roles = authentication.getAuthorities();
+
+            modelMap.addAttribute("username", username);
+            modelMap.addAttribute("roles", roles);
+
+            List<RendezVous> liste = userService.getListRendezVousByDate(date);
+
+            liste.sort(Comparator
+                    .comparing((RendezVous r) -> LocalDate.parse(r.getDate()))
+                    .thenComparing(r -> LocalTime.parse(r.getHeure()))
+                    .reversed());
+
+            modelMap.addAttribute("listrendezvous", liste);
+
+            return "user/creation";
+
+        } catch (Exception e) {
+            System.out.println("Erreur lors de l'annulation du rendez-vous : " + e.getMessage());
             return "error";
         }
     }

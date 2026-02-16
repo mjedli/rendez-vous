@@ -8,6 +8,7 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Repository
@@ -50,4 +51,30 @@ public class AdminRepository {
         mongoOperations.remove(removeQuery, RendezVous.class);
 
     }
+
+    public List<RendezVous> getListRendezVousVenir() {
+
+        // Date du jour au format YYYY-MM-DD
+        String today = LocalDate.now().toString(); // ex: "2026-02-16"
+
+        // Requête Mongo : date >= today
+        Query query = new Query();
+        query.addCriteria(Criteria.where("date").gte(today));
+
+        return mongoOperations.find(query, RendezVous.class);
+    }
+
+    public List<RendezVous> getListRendezVousDepasser() {
+
+        // Date du jour au format YYYY-MM-DD
+        String today = LocalDate.now().toString(); // ex: "2026-02-16"
+
+        // Requête Mongo : date < today
+        Query query = new Query();
+        query.addCriteria(Criteria.where("date").lt(today));
+
+        return mongoOperations.find(query, RendezVous.class);
+    }
+
+
 }

@@ -21,6 +21,7 @@
     <link rel="stylesheet" type="text/css" href="/content/signin.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 
 
 </head>
@@ -52,6 +53,8 @@
         <li><a href="/user/rendezvous/list">List de mes rendez-vous</a></li>
     </ul>
 
+    <br><br>
+    <input id="datePicker" placeholder="Sélectionner une date">
     <br><br>
     <div th:each="rdv, iterStat : ${listrendezvous}">
         <div th:if="${iterStat.index == 0 or rdv.date != listrendezvous[iterStat.index - 1].date}">
@@ -125,4 +128,18 @@
         src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+<script>
+    const picker = flatpickr("#datePicker", {
+        dateFormat: "Y-m-d",
+        minDate: "today",
+        onChange: function(selectedDates, dateStr) {
+
+            // Redirection vers le backend avec la date en paramètre GET
+            window.location.href = "http://localhost:8080/user/rendezvous/date?date=" + dateStr;
+        }
+    });
+</script>
+
 </html>

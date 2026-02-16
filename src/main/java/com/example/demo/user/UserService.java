@@ -29,4 +29,8 @@ public class UserService {
     public List<RendezVous> getListRendezVousByUser(String username) {
         return userRepository.getListRendezVousByUser(username);
     }
+
+    public List<RendezVous> getListRendezVousByDate(String date) {
+        return userRepository.getListRendezVousByDate(date);
+    }
 }

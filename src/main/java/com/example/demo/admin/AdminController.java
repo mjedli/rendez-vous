@@ -101,12 +101,40 @@ public class AdminController {
         }
     }
 
-    @GetMapping("/admin/rendezvous/list")
-    public String listRendezvous(Authentication authentication, ModelMap modelMap) {
+    @GetMapping("/admin/rendezvous/list/venir")
+    public String listRendezvousVenir(Authentication authentication, ModelMap modelMap) {
 
         try {
 
-            List<RendezVous> liste = adminService.getListRendezVous();
+            List<RendezVous> liste = adminService.getListRendezVousVenir();
+
+            String username = authentication.getName(); // email ou identifiant
+            Collection<? extends GrantedAuthority> roles = authentication.getAuthorities();
+
+            modelMap.addAttribute("username", username);
+            modelMap.addAttribute("roles", roles);
+
+            liste.sort(Comparator
+                    .comparing((RendezVous r) -> LocalDate.parse(r.getDate()))
+                    .thenComparing(r -> LocalTime.parse(r.getHeure()))
+                    .reversed());
+
+            modelMap.addAttribute("listrendezvous", liste);
+            return "admin/list";
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return "error";
+        }
+
+    }
+
+    @GetMapping("/admin/rendezvous/list/depasser")
+    public String listRendezvousDepassers(Authentication authentication, ModelMap modelMap) {
+
+        try {
+
+            List<RendezVous> liste = adminService.getListRendezVousDepasser();
 
             String username = authentication.getName(); // email ou identifiant
             Collection<? extends GrantedAuthority> roles = authentication.getAuthorities();

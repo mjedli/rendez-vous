@@ -7,6 +7,9 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.List;
 import java.util.Queue;
 
@@ -38,9 +41,26 @@ public class UserRepository {
     }
 
     public List<RendezVous> getListRendezVousByUser(String username) {
+
+        // 1. Récupérer l'utilisateur
         Query searchQuery = new Query(Criteria.where("email").is(username));
         LoginPojo loginPojo = mongoOperations.findOne(searchQuery, LoginPojo.class);
-        searchQuery = new Query(Criteria.where("reservedId").is(loginPojo.getId()));
+
+        // 2. Date du jour au format String YYYY-MM-DD
+        String today = LocalDate.now().toString(); // ex: "2026-02-16"
+
+        // 3. Requête : reservedId = userId ET date >= today
+        Query query = new Query();
+        query.addCriteria(
+                Criteria.where("reservedId").is(loginPojo.getId())
+                        .and("date").gte(today)
+        );
+
+        return mongoOperations.find(query, RendezVous.class);
+    }
+
+    public List<RendezVous> getListRendezVousByDate(String date) {
+        Query searchQuery = new Query(Criteria.where("date").is(date));
         return mongoOperations.find(searchQuery, RendezVous.class);
     }
 }

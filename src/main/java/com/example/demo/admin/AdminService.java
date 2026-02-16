@@ -29,4 +29,12 @@ public class AdminService {
     public void deleteRendezVousDate(String rendezvous) {
         adminRepository.deleteRendezVousDate(rendezvous);
     }
+
+    public List<RendezVous> getListRendezVousVenir() {
+        return adminRepository.getListRendezVousVenir();
+    }
+
+    public List<RendezVous> getListRendezVousDepasser() {
+        return adminRepository.getListRendezVousDepasser();
+    }
 }
