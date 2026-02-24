@@ -81,10 +81,6 @@ public class LoginController {
             return HREF_BASE + "/login";
         }
 
-        response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
-        response.setHeader("Pragma", "no-cache");
-        response.setDateHeader("Expires", 0);
-
         modelMap.addAttribute("username", principal.getName());
 
         String username = authentication.getName(); // email ou identifiant

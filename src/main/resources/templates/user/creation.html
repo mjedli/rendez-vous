@@ -1,6 +1,6 @@
 ﻿<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="utf-8">
     <meta name="viewport"
@@ -23,6 +23,69 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 
+    <style>
+        .rdv-date-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .rdv-date-header h5 {
+            margin: 0;
+            font-size: 1.2em;
+            color: #333;
+        }
+
+        .rdv-card {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+        }
+
+        .rdv-heure {
+            padding: 8px 16px;
+            border: 2px solid #007bff;
+            border-radius: 8px;
+            background-color: #e9f2ff;
+            color: #007bff;
+            font-weight: bold;
+            font-size: 1.1em;
+            min-width: 80px;
+            text-align: center;
+        }
+
+        .rdv-actions {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .rdv-actions button {
+            border: none;
+            background: none;
+            cursor: pointer;
+        }
+
+        .rdv-actions .material-icons {
+            font-size: 24px;
+        }
+
+        .rdv-actions .material-icons.red {
+            color: red;
+        }
+
+        .rdv-actions .material-icons.green {
+            color: green;
+        }
+
+
+    </style>
 
 </head>
 <body>
@@ -57,60 +120,59 @@
     <input id="datePicker" placeholder="Sélectionner une date">
     <br><br>
     <div th:each="rdv, iterStat : ${listrendezvous}">
+
+        <!-- Affichage de la date -->
         <div th:if="${iterStat.index == 0 or rdv.date != listrendezvous[iterStat.index - 1].date}">
             <hr>
-            <table>
-                <tr>
-                    <td align="left">
-                        <h5 th:text="${rdv.date}">Date</h5>
-                    </td>
-                </tr>
-            </table>
-
-
+            <div class="rdv-date-header">
+                <h5 th:text="${rdv.date}">Date</h5>
+            </div>
         </div>
-        <div style="display: flex; align-items: center; gap: 10px;">
-            <span th:text="${rdv.heure}">Heure</span>
 
-            <span>
-                <table>
-                    <tr align="left">
-                        <td th:if="${rdv.reservedId != null and rdv.reservedId != ''}">
-                            <form th:action="@{/user/rendezvous/annuler}" method="post" th:object="${rdv}">
-                                <input type="hidden" name="id" th:value="${rdv.id}"/>
-                                <input type="hidden" th:name="date" th:value="${rdv.date}"/>
-                                <input type="hidden" th:name="heure" th:value="${rdv.heure}"/>
-                                <input type="hidden" th:name="reservedId" th:value="${rdv.reservedId}"/>
-                                <button type="submit" style="border: none; background: none; cursor: pointer;"
-                                        title="Supprimer">
-                                    <span class="material-icons" style="color: red;">delete</span>
-                                </button>
-                            </form>
-                        </td>
+        <!-- Carte RDV avec heure et actions -->
+        <div class="rdv-card">
 
-                        <td>
-            <form th:action="@{/user/rendezvous/select}" method="post" th:object="${rdv}">
-                <input type="hidden" name="id" th:value="${rdv.id}"/>
-                <input type="hidden" th:name="date" th:value="${rdv.date}"/>
-                <input type="hidden" th:name="heure" th:value="${rdv.heure}"/>
-                <input type="hidden" th:name="reservedId" th:value="${rdv.reservedId}"/>
-                <span th:if="${rdv.reservedId != null and rdv.reservedId != ''}">
-                    <button type="submit" style="border: none; background: none; cursor: pointer;" title="Valider">
-                        <span class="material-icons" style="color: green;">check</span>
+            <!-- Heure dans un cadre -->
+            <div class="rdv-heure">
+                <span th:text="${rdv.heure}">Heure</span>
+            </div>
+
+            <!-- Actions -->
+            <div class="rdv-actions">
+                <form th:if="${rdv.reservedId != null and rdv.reservedId != ''}"
+                      th:action="@{/user/rendezvous/annuler}" method="post" th:object="${rdv}">
+                    <input type="hidden" name="id" th:value="${rdv.id}"/>
+                    <input type="hidden" th:name="date" th:value="${rdv.date}"/>
+                    <input type="hidden" th:name="heure" th:value="${rdv.heure}"/>
+                    <input type="hidden" th:name="reservedId" th:value="${rdv.reservedId}"/>
+                    <button type="submit" title="Supprimer">
+                        <span class="material-icons red">delete</span>
+                    </button>
+                </form>
+
+                <form th:action="@{/user/rendezvous/select}" method="post" th:object="${rdv}">
+                    <input type="hidden" name="id" th:value="${rdv.id}"/>
+                    <input type="hidden" th:name="date" th:value="${rdv.date}"/>
+                    <input type="hidden" th:name="heure" th:value="${rdv.heure}"/>
+                    <input type="hidden" th:name="reservedId" th:value="${rdv.reservedId}"/>
+
+                    <span th:if="${rdv.reservedId != null and rdv.reservedId != ''}">
+                    <button type="submit" title="Valider">
+                        <span class="material-icons green">check</span>
                     </button>
                 </span>
-                <span th:if="${rdv.reservedId == null or rdv.reservedId == ''}">
-                    <button type="submit" style="border: none; background: none; cursor: pointer;" title="Cocher">
-                        <span class="material-icons" style="color: green;">check_box</span>
+                    <span th:if="${rdv.reservedId == null or rdv.reservedId == ''}">
+                    <button type="submit" title="Cocher">
+                        <span class="material-icons green">check_box</span>
                     </button>
                 </span>
-            </form>
-                        </td>
-                    </tr>
-                </table>
-                <!-- Formulaire de suppression -->
+                </form>
+            </div>
         </div>
     </div>
+
+
+
 
 
 </div>

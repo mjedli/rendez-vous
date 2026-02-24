@@ -72,7 +72,7 @@ public class AdminController {
 
             adminService.deleteRendezVous(rendezvous);
 
-            return "redirect:/admin/rendezvous/list";
+            return "redirect:/home";
 
         } catch (Exception e) {
             System.out.println(e.getMessage());

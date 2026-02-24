@@ -1,6 +1,6 @@
 ﻿<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="utf-8">
     <meta name="viewport"
@@ -22,6 +22,64 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
+    <style>
+        .rdv-date-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .rdv-date-header h5 {
+            margin: 0;
+            font-size: 1.2em;
+            color: #333;
+        }
+
+        .rdv-card {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+        }
+
+        .rdv-heure {
+            padding: 8px 16px;
+            border: 2px solid #007bff;
+            border-radius: 8px;
+            background-color: #e9f2ff;
+            color: #007bff;
+            font-weight: bold;
+            font-size: 1.1em;
+            min-width: 80px;
+            text-align: center;
+        }
+
+        .rdv-actions {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .rdv-actions button {
+            border: none;
+            background: none;
+            cursor: pointer;
+        }
+
+        .rdv-actions .material-icons {
+            font-size: 24px;
+        }
+
+        .rdv-actions .material-icons.red {
+            color: red;
+        }
+
+    </style>
 
 </head>
 <body>
@@ -53,42 +111,41 @@
 
     <br><br>
     <div th:each="rdv, iterStat : ${listrendezvous}">
+
+        <!-- Affichage de la date -->
         <div th:if="${iterStat.index == 0 or rdv.date != listrendezvous[iterStat.index - 1].date}">
             <hr>
-            <table>
-                <tr>
-                    <td align="left">
-                        <h5 th:text="${rdv.date}">Date</h5>
-                    </td>
-                </tr>
-            </table>
+            <div class="rdv-date-header">
+                <h5 th:text="${rdv.date}">Date</h5>
+            </div>
+        </div>
 
+        <!-- Carte RDV -->
+        <div class="rdv-card">
+
+            <!-- Heure dans un cadre -->
+            <div class="rdv-heure">
+                <span th:text="${rdv.heure}">Heure</span>
+            </div>
+
+            <!-- Formulaire -->
+            <div class="rdv-actions">
+                <form th:if="${rdv.reservedId != null and rdv.reservedId != ''}"
+                      th:action="@{'/user/rendezvous/annuler/' + ${rdv.id}}" method="post" th:object="${rdv}" class="rdv-form">
+                    <input type="hidden" name="id" th:value="${rdv.id}"/>
+                    <input type="hidden" name="date" th:value="${rdv.date}"/>
+                    <input type="hidden" name="heure" th:value="${rdv.heure}"/>
+                    <input type="hidden" name="reservedId" th:value="${rdv.reservedId}"/>
+                    <button type="submit" title="Annuler">
+                        <span class="material-icons red">delete</span>
+                    </button>
+                </form>
+            </div>
 
         </div>
-        <div style="display: flex; align-items: center; gap: 10px;">
-            <span th:text="${rdv.heure}">Heure</span>
 
-            <span>
-                <table>
-                    <tr align="left">
-                        <td th:if="${rdv.reservedId != null and rdv.reservedId != ''}">
-                            <form th:action="@{'/user/rendezvous/annuler/' + ${rdv.id}}" method="post"
-                                  th:object="${rdv}">
-                                <input type="hidden" name="id" th:value="${rdv.id}"/>
-                                <input type="hidden" name="date" th:value="${rdv.date}"/>
-                                <input type="hidden" name="heure" th:value="${rdv.heure}"/>
-                                <input type="hidden" name="reservedId" th:value="${rdv.reservedId}"/>
-                                <button type="submit" style="border: none; background: none; cursor: pointer;"
-                                        title="Annuler">
-                                    <span class="material-icons" style="color: red;">delete</span>
-                                </button>
-                            </form>
-                        </td>
-                    </tr>
-                </table>
-                <!-- Formulaire de suppression -->
-        </div>
     </div>
+
 
 </div>
 </body>

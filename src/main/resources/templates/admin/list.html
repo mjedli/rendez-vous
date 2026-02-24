@@ -1,6 +1,6 @@
 ﻿<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="utf-8">
     <meta name="viewport"
@@ -22,6 +22,78 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
+    <style>
+        .rdv-date-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .rdv-date-header h5 {
+            margin: 0;
+            font-size: 1.2em;
+            color: #333;
+        }
+
+        .icon-btn {
+            border: none;
+            background: none;
+            cursor: pointer;
+        }
+
+        .delete-icon {
+            color: red;
+            font-size: 24px;
+        }
+
+        .rdv-card {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+        }
+
+        .rdv-heure {
+            padding: 8px 16px;
+            border: 2px solid #007bff;
+            border-radius: 8px;
+            background-color: #e9f2ff;
+            color: #007bff;
+            font-weight: bold;
+            font-size: 1.1em;
+            min-width: 80px;
+            text-align: center;
+        }
+
+        .rdv-form {
+            display: flex;
+            gap: 10px;
+        }
+
+        .rdv-form button {
+            border: none;
+            background: none;
+            cursor: pointer;
+        }
+
+        .rdv-form .material-icons {
+            font-size: 24px;
+        }
+
+        .rdv-form .material-icons.red {
+            color: red;
+        }
+
+        .rdv-form .material-icons.green {
+            color: green;
+        }
+
+    </style>
 
 </head>
 <body>
@@ -57,41 +129,44 @@
     <!-- Assure-toi d’avoir importé Material Icons dans ton <head> -->
 
     <div th:each="rdv, iterStat : ${listrendezvous}">
+
+        <!-- Affichage de la date -->
         <div th:if="${iterStat.index == 0 or rdv.date != listrendezvous[iterStat.index - 1].date}">
             <hr>
-            <table>
-                <tr>
-                    <td align="left">
-                        <h5 th:text="${rdv.date}">Date</h5>
-                    </td>
-                    <td align="left">
-                        <form th:action="@{/admin/rendezvous/date/delete}" method="post" th:object="${rdv}">
-                            <input type="hidden" th:name="date" th:value="${rdv.date}"/>
-                            <button type="submit" style="border: none; background: none; cursor: pointer;"
-                                    title="Supprimer">
-                                <span class="material-icons" style="color: red;">delete</span>
-                            </button>
-                        </form>
-                    </td>
-                </tr>
-            </table>
+            <div class="rdv-date-header">
+                <h5 th:text="${rdv.date}">Date</h5>
 
-
+                <form th:action="@{/admin/rendezvous/date/delete}" method="post" th:object="${rdv}">
+                    <input type="hidden" th:name="date" th:value="${rdv.date}"/>
+                    <button type="submit" class="icon-btn" title="Supprimer">
+                        <span class="material-icons delete-icon">delete</span>
+                    </button>
+                </form>
+            </div>
         </div>
-        <div style="display: flex; align-items: center; gap: 10px;">
-            <span th:text="${rdv.heure}">Heure</span>
 
-            <!-- Formulaire de suppression -->
-            <form th:action="@{/admin/rendezvous/delete}" method="post" th:object="${rdv}">
+        <!-- Carte RDV -->
+        <div class="rdv-card">
+
+            <!-- Heure dans un cadre -->
+            <div class="rdv-heure">
+                <span th:text="${rdv.heure}">Heure</span>
+            </div>
+
+            <!-- Formulaire avec deux boutons -->
+            <form th:action="@{/admin/rendezvous/delete}" method="post" th:object="${rdv}" class="rdv-form">
                 <input type="hidden" name="id" th:value="${rdv.id}"/>
                 <input type="hidden" th:name="date" th:value="${rdv.date}"/>
                 <input type="hidden" th:name="heure" th:value="${rdv.heure}"/>
-                <button type="submit" style="border: none; background: none; cursor: pointer;" title="Supprimer">
-                    <span class="material-icons" style="color: red;">delete</span>
+                <button type="submit" class="btn btn-delete">
+                    Supprimer
                 </button>
             </form>
+
         </div>
+
     </div>
+
 
 
 </div>
