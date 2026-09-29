@@ -77,4 +77,11 @@ public class AdminRepository {
     }
 
 
+    public void deleteRendezVousId(String id) {
+        Query removeQuery = new Query(
+                Criteria.where("id").is(id)
+        );
+
+        mongoOperations.remove(removeQuery, RendezVous.class);
+    }
 }

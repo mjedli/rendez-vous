@@ -37,4 +37,8 @@ public class AdminService {
     public List<RendezVous> getListRendezVousDepasser() {
         return adminRepository.getListRendezVousDepasser();
     }
+
+    public void deleteRendezVousId(String id) {
+        adminRepository.deleteRendezVousId(id);
+    }
 }

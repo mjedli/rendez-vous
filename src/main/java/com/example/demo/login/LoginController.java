@@ -72,7 +72,7 @@ public class LoginController {
 
     @GetMapping(value = "/")
     private String start() {
-        return "redirect:/home";
+        return "/menu";
     }
 
     @GetMapping(value = "/home")
@@ -99,9 +99,9 @@ public class LoginController {
 
         // Exemple : redirection selon le rôle
         if (roles.stream().anyMatch(r -> r.getAuthority().equals("ROLE_ADMIN"))) {
-            return "admin-home";
+            return "admin-home-angular";
         } else if (roles.stream().anyMatch(r -> r.getAuthority().equals("ROLE_USER"))) {
-            return "user-home";
+            return "user-home-angular";
         }
 
         return "access-denied";

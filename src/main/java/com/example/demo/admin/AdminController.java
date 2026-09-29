@@ -1,6 +1,8 @@
 package com.example.demo.admin;
 
 import com.example.demo.admin.model.RendezVous;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Sort;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.Authentication;
@@ -16,9 +18,13 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @Controller
+@CrossOrigin(origins = {"http://localhost:4200", "http://localhost:8080"})
 public class AdminController {
 
     AdminService adminService;
+
+    private static final Logger logger =
+            LoggerFactory.getLogger(AdminController.class);
 
     public AdminController(AdminService adminService) {
         this.adminService = adminService;
@@ -37,25 +43,20 @@ public class AdminController {
     }
 
     @PostMapping("/admin/rendezvous/add")
-    public String addRendezvous(@ModelAttribute RendezVous rendezvous, Authentication authentication, ModelMap modelMap) {
+    @ResponseBody
+    public String addRendezvous(@RequestBody RendezVous rendezvous, Authentication authentication, ModelMap modelMap) {
 
         try {
 
-            String username = authentication.getName(); // email ou identifiant
-            Collection<? extends GrantedAuthority> roles = authentication.getAuthorities();
-
-            modelMap.addAttribute("username", username);
-            modelMap.addAttribute("roles", roles);
-
             if (adminService.addRendezvous(rendezvous).getHeure().equals("exist")) {
-                return "redirect:/admin/rendezvous/create?error";
+                return "false";
             }
 
-            return "redirect:/admin/rendezvous/create?sucess";
+            return "true";
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
-            return "error";
+            return "false";
         }
     }
 
@@ -80,79 +81,76 @@ public class AdminController {
         }
     }
 
-    @PostMapping("/admin/rendezvous/date/delete")
-    public String deleteRendezvousDate(@RequestParam("date") String date, Authentication authentication, ModelMap modelMap) {
-
+    @DeleteMapping("/admin/rendezvous/delete/{id}")
+    @ResponseBody
+    public String deleteRendezvous(@PathVariable String id, Authentication authentication, ModelMap modelMap) {
         try {
-
+/*
             String username = authentication.getName(); // email ou identifiant
             Collection<? extends GrantedAuthority> roles = authentication.getAuthorities();
 
             modelMap.addAttribute("username", username);
             modelMap.addAttribute("roles", roles);
+*/
+            adminService.deleteRendezVousId(id);
 
-            adminService.deleteRendezVousDate(date);
-
-            return "redirect:/home";
+            return "true";
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
-            return "error";
+            return "false";
         }
     }
 
     @GetMapping("/admin/rendezvous/list/venir")
-    public String listRendezvousVenir(Authentication authentication, ModelMap modelMap) {
+    @ResponseBody
+    public List<RendezVous> listRendezvousVenir(Authentication authentication, ModelMap modelMap) {
 
         try {
 
             List<RendezVous> liste = adminService.getListRendezVousVenir();
 
+            logger.info(liste.toString());
+
             String username = authentication.getName(); // email ou identifiant
             Collection<? extends GrantedAuthority> roles = authentication.getAuthorities();
 
-            modelMap.addAttribute("username", username);
-            modelMap.addAttribute("roles", roles);
+            //modelMap.addAttribute("username", username);
+            //modelMap.addAttribute("roles", roles);
 
             liste.sort(Comparator
                     .comparing((RendezVous r) -> LocalDate.parse(r.getDate()))
                     .thenComparing(r -> LocalTime.parse(r.getHeure()))
                     .reversed());
 
-            modelMap.addAttribute("listrendezvous", liste);
-            return "admin/list";
+            //modelMap.addAttribute("listrendezvous", liste);
+            return liste;
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
-            return "error";
+            return null;
         }
 
     }
 
     @GetMapping("/admin/rendezvous/list/depasser")
-    public String listRendezvousDepassers(Authentication authentication, ModelMap modelMap) {
+    @ResponseBody
+    public List<RendezVous> listRendezvousDepassers(Authentication authentication, ModelMap modelMap) {
 
         try {
 
             List<RendezVous> liste = adminService.getListRendezVousDepasser();
-
-            String username = authentication.getName(); // email ou identifiant
-            Collection<? extends GrantedAuthority> roles = authentication.getAuthorities();
-
-            modelMap.addAttribute("username", username);
-            modelMap.addAttribute("roles", roles);
 
             liste.sort(Comparator
                     .comparing((RendezVous r) -> LocalDate.parse(r.getDate()))
                     .thenComparing(r -> LocalTime.parse(r.getHeure()))
                     .reversed());
 
-            modelMap.addAttribute("listrendezvous", liste);
-            return "admin/list";
+            return liste;
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
-            return "error";
+            return null;
         }
 
     }
