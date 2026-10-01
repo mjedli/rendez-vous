@@ -22,16 +22,32 @@
     </svg>
 
   </div>
-
+  
 <mat-form-field appearance="fill">
-  <mat-label>Choisir une date</mat-label>
-    <input matInput [matDatepicker]="picker" [value]="startDate" [min]="minDate" (dateChange)="startDate = $event.value">
-  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-  <mat-datepicker #picker></mat-datepicker>
+<mat-label>Choisir une date</mat-label>
+<input
+matInput
+[matDatepicker]="picker"
+[(ngModel)]="startDate"
+[min]="minDate"
+(dateChange)="onDateChange($event)">
+<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+<mat-datepicker #picker></mat-datepicker>
 </mat-form-field>
+ 
+<p>Date choisie : {{ startDate | date:'dd/MM/yyyy' }}</p>
 
-<p>Date choisie : {{ startDate | date }}</p>
-
+<div *ngFor="let rdv of rendezvousList">
+Date : {{ rdv.date }} -
+Heure : {{ rdv.heure }} -
+Réservation : {{ rdv.reservedId }}
+ 
+<button
+class="btn btn-danger btn-sm ms-2"
+(click)="deleteRendezvous(rdv.id!)">
+<i class="fas fa-trash"></i>
+</button>
+</div>
 
  <!-- Footer -->
   <footer>

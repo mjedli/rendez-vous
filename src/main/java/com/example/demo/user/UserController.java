@@ -114,15 +114,17 @@ public class UserController {
         }
     }
 
-    @GetMapping("/user/rendezvous/date")
-    public String getRendezVousPerDate(@RequestParam String date, Authentication authentication, ModelMap modelMap) {
+    @GetMapping("/user/rendezvous/{date}")
+    @ResponseBody
+    public List<RendezVous> getRendezVousPerDate(@PathVariable String date, Authentication authentication, ModelMap modelMap) {
         try {
+            /*
             String username = authentication.getName(); // email ou identifiant
             Collection<? extends GrantedAuthority> roles = authentication.getAuthorities();
 
             modelMap.addAttribute("username", username);
             modelMap.addAttribute("roles", roles);
-
+            */
             List<RendezVous> liste = userService.getListRendezVousByDate(date);
 
             liste.sort(Comparator
@@ -130,13 +132,13 @@ public class UserController {
                     .thenComparing(r -> LocalTime.parse(r.getHeure()))
                     .reversed());
 
-            modelMap.addAttribute("listrendezvous", liste);
+            //modelMap.addAttribute("listrendezvous", liste);
 
-            return "user/creation";
+            return liste;
 
         } catch (Exception e) {
             System.out.println("Erreur lors de l'annulation du rendez-vous : " + e.getMessage());
-            return "error";
+            return null;
         }
     }
 
