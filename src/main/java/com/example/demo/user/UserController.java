@@ -44,51 +44,45 @@ public class UserController {
     }
 
     @PostMapping("/user/rendezvous/select")
-    public String selectRendezvous(@ModelAttribute RendezVous rendezVous, Authentication authentication, ModelMap modelMap) {
+    @ResponseBody
+    public String selectRendezvous(@RequestBody RendezVous rendezVous, Authentication authentication, ModelMap modelMap) {
 
         try {
 
             String username = authentication.getName(); // email ou identifiant
             Collection<? extends GrantedAuthority> roles = authentication.getAuthorities();
 
-            modelMap.addAttribute("username", username);
-            modelMap.addAttribute("roles", roles);
-
             userService.selectRendezvous(rendezVous, username);
 
-            return "redirect:/user/rendezvous/date?date=" + rendezVous.getDate();
+            return "true";
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
-            return "error";
+            return "false";
         }
 
     }
 
     @PostMapping("/user/rendezvous/annuler")
-    public String annulerRendezVous(@ModelAttribute RendezVous rendezVous, Authentication authentication, ModelMap modelMap) {
+    @ResponseBody
+    public String annulerRendezVous(@RequestBody RendezVous rendezVous, Authentication authentication, ModelMap modelMap) {
 
         try {
 
-            String username = authentication.getName(); // email ou identifiant
-            Collection<? extends GrantedAuthority> roles = authentication.getAuthorities();
-
-            modelMap.addAttribute("username", username);
-            modelMap.addAttribute("roles", roles);
-
             userService.annulerRendezvous(rendezVous);
 
-            return "redirect:/user/rendezvous/date?date=" + rendezVous.getDate();
+            return "true";
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
-            return "error";
+            return "false";
         }
 
     }
 
     @GetMapping("/user/rendezvous/list")
-    public String listRendezvous(Authentication authentication, ModelMap modelMap) {
+    @ResponseBody
+    public List<RendezVous> listRendezvous(Authentication authentication, ModelMap modelMap) {
 
         try {
 
@@ -105,12 +99,11 @@ public class UserController {
                     .thenComparing(r -> LocalTime.parse(r.getHeure()))
                     .reversed());
 
-            modelMap.addAttribute("listrendezvous", liste);
-            return "user/list";
+            return liste;
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
-            return "error";
+            return null;
         }
     }
 

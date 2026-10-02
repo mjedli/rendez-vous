@@ -39,9 +39,15 @@ export class SelectComponent {
     });
   }
 
-  deleteRendezvous(id: string) {
-    this.service.deleteRendezvous(id).subscribe(() => {
-      this.rendezvousList = this.rendezvousList.filter(rdv => rdv.id !== id);
+  selectRendezvous(rdv: RendezVous) {
+    this.service.selectRendezvous(rdv).subscribe(() => {
+      this.loadRendezvous(this.startDate);
+    });
+  } 
+
+  unSelectRendezvous(rdv: RendezVous) {
+    this.service.unSelectRendezvous(rdv).subscribe(() => {
+      this.loadRendezvous(this.startDate);
     });
   } 
 

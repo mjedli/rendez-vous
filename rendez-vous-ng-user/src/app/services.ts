@@ -7,6 +7,7 @@ import { RendezVous } from './rendezvous';
   providedIn: 'root'
 })
 export class RendezvousService {
+
   private apiUrl = 'http://localhost:8080/user/rendezvous/';
 
   constructor(private http: HttpClient) {}
@@ -15,7 +16,15 @@ export class RendezvousService {
     return this.http.get<RendezVous[]>(this.apiUrl+date);
   }
 
-  deleteRendezvous(id: string): Observable<String> {
-    return this.http.delete<String>(`${this.apiUrl}delete/${id}`);
+  selectRendezvous(rdv: RendezVous): Observable<String> {
+    return this.http.post<String>(`${this.apiUrl}select`, rdv);
+  }
+
+  unSelectRendezvous(rdv: RendezVous): Observable<String> {
+    return this.http.post<String>(`${this.apiUrl}annuler`, rdv);
+  }
+
+  getListRendezvous(): Observable<RendezVous[]> {
+    return this.http.get<RendezVous[]>(this.apiUrl+'list');
   }
 }

@@ -24,6 +24,28 @@
   </div>
 
 
+<br><br>
+<div *ngFor="let rdv of rendezvousList">
+Date : {{ rdv.date }} -
+Heure : {{ rdv.heure }} -
+Statut :
+<span *ngIf="rdv.reservedId; else nonValide" style="color:green">
+Validé
+</span>
+ 
+<ng-template #nonValide>
+<span style="color:red">Non validé</span>
+</ng-template>
+
+<button
+class="btn btn-danger btn-sm ms-2"
+(click)="unSelectRendezvous(rdv)">
+<i class="fas fa-times"></i>
+</button>
+
+<br><br>
+</div>
+
   <!-- Footer -->
   <footer>
       Love Angular?&nbsp;
