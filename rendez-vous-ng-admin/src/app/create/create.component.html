@@ -44,7 +44,14 @@
     -
     Heure : {{ rdv.heure }}
     -
-    Réservation : {{ rdv.reservedId }}
+    Statut :
+<span *ngIf="rdv.reservedId; else nonValide" style="color:green">
+Validé
+</span>
+ 
+<ng-template #nonValide>
+<span style="color:red">Non validé</span>
+</ng-template>
      
     <form (ngSubmit)="deleteRendezvous(rdv.id!)" style="display:inline-block; margin-left:10px;">
     <button type="submit"><i class="fas fa-trash"></i></button>

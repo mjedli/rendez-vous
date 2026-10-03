@@ -71,8 +71,42 @@ public class LoginController {
     }
 
     @GetMapping(value = "/")
-    private String start() {
-        return "/menu";
+    private String start(HttpServletResponse response, Authentication authentication, Principal principal, Model modelMap) {
+        if (principal == null) {
+            return HREF_BASE + "/login";
+        }
+
+        String username = authentication.getName(); // email ou identifiant
+        Collection<? extends GrantedAuthority> roles = authentication.getAuthorities();
+
+        // Exemple : redirection selon le rôle
+        if (roles.stream().anyMatch(r -> r.getAuthority().equals("ROLE_ADMIN"))) {
+            return "admin-home-angular";
+        } else if (roles.stream().anyMatch(r -> r.getAuthority().equals("ROLE_USER"))) {
+            return "user-home-angular";
+        }
+
+        return "access-denied";
+    }
+
+
+    @GetMapping(value = "/menu")
+    private String startmenu(HttpServletResponse response, Authentication authentication, Principal principal, Model modelMap) {
+        if (principal == null) {
+            return HREF_BASE + "/login";
+        }
+
+        String username = authentication.getName(); // email ou identifiant
+        Collection<? extends GrantedAuthority> roles = authentication.getAuthorities();
+
+        // Exemple : redirection selon le rôle
+        if (roles.stream().anyMatch(r -> r.getAuthority().equals("ROLE_ADMIN"))) {
+            return "admin-home-angular";
+        } else if (roles.stream().anyMatch(r -> r.getAuthority().equals("ROLE_USER"))) {
+            return "user-home-angular";
+        }
+
+        return "access-denied";
     }
 
     @GetMapping(value = "/home")
